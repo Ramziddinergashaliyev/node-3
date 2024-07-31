@@ -1,0 +1,43 @@
+.user-form {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: gray;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #aaa5;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+
+    &:focus {
+      border-color: gray;
+      outline: none;
+      box-shadow: 0 0 5px rgba(gray, 0.5);
+    }
+  }
+
+  .submit-btn {
+    background-color: gray;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: #f8f9fa 0.3s;
+    outline: none;
+  }
+}
