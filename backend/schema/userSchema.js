@@ -35,8 +35,7 @@ const userSchema = new mongoose.Schema({
   },
   isActive: {
     type: Boolean,
-    required: false,
-    default: "",
+    default: true,
   },
   budget: {
     type: Number,
@@ -55,7 +54,7 @@ export const validationBlog = (body) => {
     url: Joi.string().required(),
     age: Joi.number().required(),
     gender: Joi.string().required(),
-    isActive: Joi.boolean().required(),
+    isActive: Joi.boolean().allow(true),
     budget: Joi.number().required(),
   });
   return schema.validate(body);
