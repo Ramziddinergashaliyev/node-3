@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   useDeleteUsersMutation,
   useGetUsersQuery,
 } from "../../context/api/userApi";
 import "./cards.scss";
+import Form from "../form/Form";
+import Typography from "@mui/material/Typography";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 const Cards = () => {
-  const { data } = useGetUsersQuery();
   const [deleteUsers, { data: del }] = useDeleteUsersMutation();
+  const [show, setShow] = useState(false);
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+  const { data } = useGetUsersQuery({ limit: 2, skip: page });
+  console.log(data);
 
   const userData = data?.payload?.map((el) => (
     <div key={el._id} className="user__card">
@@ -27,9 +37,25 @@ const Cards = () => {
     </div>
   ));
 
+  console.log(data?.total);
+
   return (
     <div className="user container">
+      {show ? (
+        <>
+          <Form />
+          <div onClick={() => setShow(false)} className="user__overlay"></div>
+        </>
+      ) : (
+        <></>
+      )}
+      <div className="user__edit">
+        <button onClick={() => setShow(true)}>+ Create</button>
+      </div>
       <div className="user__cards">{userData}</div>
+      <Stack spacing={1}>
+        <Pagination count={data?.total} page={page} onChange={handleChange} />
+      </Stack>
     </div>
   );
 };

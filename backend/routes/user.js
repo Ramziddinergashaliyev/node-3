@@ -1,10 +1,13 @@
 import express from "express";
-import { Users } from "../schema/userSchema.js";
+import { Users, validationBlog } from "../schema/userSchema.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const users = await Users.find();
+    const { limit = 2, skip = 1 } = req.query;
+    const users = await Users.find()
+      .limit(limit)
+      .skip((skip - 1) * limit);
     if (!users.length) {
       return res.status(400).json({
         msg: "Users is not undifend",
@@ -12,10 +15,12 @@ router.get("/", async (req, res) => {
         payload: null,
       });
     }
+    let total = await Users.countDocuments();
     res.status(200).json({
       msg: "all user",
       variant: "success",
       payload: users,
+      total: Math.ceil(total / limit),
     });
   } catch {
     res.status(500).json({
@@ -28,6 +33,23 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
+    let { error } = validationBlog(req.body);
+    if (error) {
+      return res.status(400).json({
+        msg: error.details[0].message,
+        variant: "error",
+        payload: null,
+      });
+    }
+
+    const exist = await Users.exists({ username: req.body.username });
+    if (exist) {
+      return res.status(400).json({
+        msg: "username mavjud",
+        variant: "error",
+        payload: null,
+      });
+    }
     const user = await Users.create(req.body);
     res.status(201).json({
       msg: "Users is created",

@@ -1,10 +1,15 @@
 .user-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: #f8f9fa;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  margin: 20px auto;
+  width: 600px;
+  margin: 0px auto;
+  z-index: 3;
 
   label {
     display: block;
@@ -16,10 +21,10 @@
   input,
   select {
     width: 100%;
-    padding: 10px;
+    padding: 8px;
     border: 1px solid #aaa5;
     border-radius: 4px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     font-size: 1rem;
 
     &:focus {
@@ -33,7 +38,7 @@
     background-color: gray;
     color: #fff;
     border: none;
-    padding: 10px;
+    padding: 8px;
     border-radius: 4px;
     font-size: 1rem;
     cursor: pointer;
