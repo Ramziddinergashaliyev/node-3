@@ -21,8 +21,7 @@ const userSchema = new mongoose.Schema({
   },
   age: {
     type: Number,
-    required: false,
-    default: "",
+    required: true,
   },
   url: {
     type: String,
@@ -39,7 +38,7 @@ const userSchema = new mongoose.Schema({
   },
   budget: {
     type: Number,
-    required: true,
+    default: 0,
   },
 });
 
@@ -48,14 +47,14 @@ export const Users = mongoose.model("user", userSchema);
 export const validationBlog = (body) => {
   let schema = Joi.object({
     fname: Joi.string().required(),
-    lname: Joi.string().required(),
+    lname: Joi.string().allow(""),
     username: Joi.string().required().min(6).max(30),
     password: Joi.string().required().min(6).max(30),
-    url: Joi.string().required(),
+    url: Joi.string().allow(""),
     age: Joi.number().required(),
     gender: Joi.string().required(),
     isActive: Joi.boolean().allow(true),
-    budget: Joi.number().required(),
+    budget: Joi.number().allow(0),
   });
   return schema.validate(body);
 };

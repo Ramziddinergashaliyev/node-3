@@ -10,6 +10,7 @@ const initialState = {
   age: "22",
   url: "https://i.pinimg.com/736x/64/81/22/6481225432795d8cdf48f0f85800cf66.jpg",
   gender: "male",
+  isActive: true,
   budget: 1200,
 };
 

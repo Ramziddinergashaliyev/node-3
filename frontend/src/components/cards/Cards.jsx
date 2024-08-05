@@ -16,7 +16,7 @@ const Cards = () => {
   const handleChange = (event, value) => {
     setPage(value);
   };
-  const { data } = useGetUsersQuery({ limit: 2, skip: page });
+  const { data } = useGetUsersQuery({ limit: 4, skip: page });
   console.log(data);
 
   const userData = data?.payload?.map((el) => (
@@ -37,6 +37,8 @@ const Cards = () => {
     </div>
   ));
 
+  let limit = 3;
+
   console.log(data?.total);
 
   return (
@@ -54,7 +56,11 @@ const Cards = () => {
       </div>
       <div className="user__cards">{userData}</div>
       <Stack spacing={1}>
-        <Pagination count={data?.total} page={page} onChange={handleChange} />
+        <Pagination
+          count={Math.ceil(data?.total / limit)}
+          page={page}
+          onChange={handleChange}
+        />
       </Stack>
     </div>
   );

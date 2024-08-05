@@ -17,7 +17,15 @@ export const userApi = api.injectEndpoints({
     }),
     createUsers: build.mutation({
       query: (body) => ({
-        url: "/users",
+        url: "/users/sign-up",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    SignInUsers: build.mutation({
+      query: (body) => ({
+        url: "/users/sign-in",
         method: "POST",
         body,
       }),
@@ -44,6 +52,7 @@ export const userApi = api.injectEndpoints({
 export const {
   useGetUsersQuery,
   useDeleteUsersMutation,
+  useSignInUsersMutation,
   useCreateUsersMutation,
   useUpdateUsersMutation,
 } = userApi;
