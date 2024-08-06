@@ -40,6 +40,11 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  role: {
+    type: String,
+    required: false,
+    default: "user",
+  },
 });
 
 export const Users = mongoose.model("user", userSchema);
@@ -55,6 +60,7 @@ export const validationBlog = (body) => {
     gender: Joi.string().required(),
     isActive: Joi.boolean().allow(true),
     budget: Joi.number().allow(0),
+    role: Joi.string().allow("user"),
   });
   return schema.validate(body);
 };
